@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts",
+    "**/*.mts"
+  ],
+  "//": "`functions` is load-bearing here, not tidiness. `include` is a bare `**/*.ts`, so without this the Pages Function is compiled by both tsc and next build, where `PagesFunction` does not exist. Its types cannot simply be added to this config either — @cloudflare/workers-types redeclares Request/Response/WebSocket and breaks the React components. It is typechecked separately via functions/tsconfig.json.",
+  "exclude": ["node_modules", "functions"]
+}

@@ -1,0 +1,22 @@
+# Cloudflare Pages redirects. Copied into out/_redirects by `next build`.
+# Format: <from> <to> [status]. Evaluated top to bottom, first match wins.
+#
+# Do NOT add a catch-all splat here. Client-side navigation fetches the RSC
+# payloads at /mk/blog.txt and friends; a rule that swallowed those would turn
+# every in-app link into a full page reload.
+
+# There is no page at the root: every page lives under its language. This
+# replaces the redirect("/mk") that a static export cannot honour — without
+# it, `/` would serve a blank 200.
+#
+# Deliberately 302 for now: the cutover from the old single-page site is
+# reversible while this is temporary. Once a week of live traffic looks right,
+# change it to 301 so the ranking signals consolidate onto /mk permanently.
+/                       /mk                     302
+
+# --- Legacy URLs from the previous single-page site -------------------------
+# That site was one page with anchors (#services, #packages, #why-us), and
+# fragments never reach the server, so there is nothing to redirect for them:
+# the browser keeps the fragment and the new /mk page has the same anchor ids.
+# Add a line here for any real path that Search Console reports, e.g.:
+# /kontakt               /mk#contact             301
