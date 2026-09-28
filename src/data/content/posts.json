@@ -1,5 +1,24 @@
 [
   {
+    "slug": "ristes",
+    "title": "RisteS",
+    "excerpt": "nekoja si proba",
+    "category": "Primer",
+    "date": "2026-09-28",
+    "image": "/images/blog/uploads/2026-09-28-3113ec0d4a308b07.webp",
+    "body": [
+      {
+        "type": "p",
+        "text": "Proba1234"
+      }
+    ],
+    "locales": [
+      "mk",
+      "en"
+    ],
+    "language": "mk"
+  },
+  {
     "slug": "dobredojdovte-na-nasiot-blog",
     "title": "Добредојдовте на нашиот блог",
     "excerpt": "Тука ќе објавуваме сметководствени и даночни совети, потсетувања за рокови и новости од законската регулатива.",
@@ -29,7 +48,11 @@
         "text": "Ако имате прашање на кое сакате да одговориме, контактирајте нè — вашето прашање најверојатно го имаат и други."
       }
     ],
-    "locales": ["mk", "sq", "en"],
+    "locales": [
+      "mk",
+      "sq",
+      "en"
+    ],
     "language": "mk"
   }
 ]
