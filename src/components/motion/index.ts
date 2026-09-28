@@ -1,7 +1,6 @@
 /**
- * Animation primitives. Every one of these honours
- * `prefers-reduced-motion: reduce` by rendering its final state immediately.
+ * Animation primitives: the approved site's framer-motion settings, redone in
+ * CSS. Every one honours `prefers-reduced-motion: reduce`.
  */
-export { AnimatedCounter } from "./AnimatedCounter";
-export { BorderBeam } from "./BorderBeam";
+export { FloatingChars } from "./FloatingChars";
 export { Reveal } from "./Reveal";

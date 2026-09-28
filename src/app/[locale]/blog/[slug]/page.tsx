@@ -80,7 +80,7 @@ export default async function ArticlePage({
         }}
       />
 
-      <article className="bg-background pb-16 pt-28 sm:pb-20 sm:pt-36">
+      <article className="bg-background pb-16 pt-48 sm:pb-20 sm:pt-52">
         <Container>
           <div className="mx-auto max-w-4xl">
             <Link
@@ -112,7 +112,7 @@ export default async function ArticlePage({
                 {article.category}
               </p>
 
-              <h1 className="mt-2 text-3xl font-bold leading-tight text-gray-900 sm:text-4xl lg:text-5xl">
+              <h1 className="mt-2 text-3xl font-bold leading-tight text-foreground sm:text-4xl lg:text-5xl">
                 {article.title}
               </h1>
 
@@ -158,7 +158,7 @@ export default async function ArticlePage({
       <section className="bg-neutral-100 py-16 sm:py-20">
         <Container>
           <Reveal className="mb-10 text-center">
-            <h2 className="text-2xl font-bold text-gray-900 sm:text-3xl">
+            <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
               {blog.related}
             </h2>
           </Reveal>

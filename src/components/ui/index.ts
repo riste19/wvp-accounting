@@ -3,7 +3,5 @@
  * data source. Safe to use anywhere.
  */
 export { ArrowLink } from "./ArrowLink";
-export { Button, ButtonLink, type ButtonVariant } from "./Button";
+export { ButtonLink, type ButtonVariant } from "./Button";
 export { Container } from "./Container";
-export { LinkedInIcon } from "./LinkedInIcon";
-export { SectionHeading } from "./SectionHeading";

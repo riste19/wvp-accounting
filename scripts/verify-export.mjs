@@ -105,6 +105,23 @@ for (const [locale, tag] of Object.entries(LANGUAGE_TAGS)) {
   }
 }
 
+// 7. Every URL the sitemap offers must be a page this build produced. Routes
+//    are listed by hand in src/app/sitemap.ts, so nothing else catches one
+//    that was renamed or never existed; Search Console would report it as a
+//    404 instead.
+const sitemap = path.join(OUT, "sitemap.xml");
+if (fs.existsSync(sitemap)) {
+  const dead = [];
+  for (const [, loc] of fs.readFileSync(sitemap, "utf8").matchAll(/<loc>([^<]+)<\/loc>/g)) {
+    const page = decodeURIComponent(new URL(loc).pathname).replace(/\/$/, "");
+    const served = [`${page}.html`, `${page}/index.html`].some((f) =>
+      fs.existsSync(path.join(OUT, f)),
+    );
+    if (!served) dead.push(page);
+  }
+  check("every sitemap URL is a page", dead.length === 0, dead.slice(0, 5).join(", "));
+}
+
 const pad = Math.max(...checks.map((c) => c.name.length));
 for (const c of checks) {
   const detail = !c.ok && c.detail ? `  ${c.detail}` : "";

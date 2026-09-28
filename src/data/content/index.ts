@@ -9,8 +9,8 @@
  * - `ui.ts` is the scaffolding around it: page metadata, button labels, the
  *   accessible names of controls.
  *
- * The blog posts and the legal documents are Macedonian only, in every
- * language, exactly as the consulting site does it.
+ * The blog posts are Macedonian only, in every language, exactly as the
+ * consulting site does it. The legal documents are in all three.
  *
  * Modules inside `src/data` must import each other by direct path rather than
  * through this barrel — going via the barrel would make the two data folders
@@ -18,8 +18,6 @@
  */
 import type { Locale } from "@/i18n/locales";
 
-import { contactForm } from "./contactForm";
-import { packages } from "./packages";
 import { pillars } from "./pillars";
 import { services } from "./services";
 import { text } from "./text";
@@ -31,12 +29,9 @@ export const getContent = (locale: Locale) => ({
   text: text[locale],
   services: services[locale],
   pillars: pillars[locale],
-  packages: packages[locale],
-  contactForm: contactForm[locale],
 });
 
 export { categoryTone } from "./categories";
-export { contactForm, type ContactFormCopy } from "./contactForm";
 export {
   articles,
   articlesFor,
@@ -47,7 +42,6 @@ export {
   getArticleIn,
   isPublishedIn,
   languageOf,
-  latestArticlesFor,
   sortedArticles,
   type Article,
   type ArticleBlock,
@@ -57,8 +51,8 @@ export {
   termsOfUse,
   type LegalDocument,
   type LegalSection,
+  type LegalTexts,
 } from "./legal";
-export { packages, type Package } from "./packages";
 export { pillars, type Pillar } from "./pillars";
 export { services, type Service } from "./services";
 export { text, type SiteText } from "./text";

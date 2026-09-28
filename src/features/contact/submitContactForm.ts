@@ -1,12 +1,10 @@
 import type { Locale } from "@/i18n/locales";
 
+/** The approved site's four questions. */
 export type ContactPayload = {
-  firstName: string;
-  lastName: string;
-  company: string;
+  name: string;
   email: string;
   phone: string;
-  subject: string;
   message: string;
 };
 

@@ -109,9 +109,6 @@ export const isPublishedIn = (article: Article, locale: Locale) =>
 export const articlesFor = (locale: Locale) =>
   sortedArticles.filter((article) => isPublishedIn(article, locale));
 
-/** The homepage shows the five most recent posts of its own country site. */
-export const latestArticlesFor = (locale: Locale) => articlesFor(locale).slice(0, 5);
-
 /** Only the categories that have a post here, so no filter comes up empty. */
 export const categoriesFor = (locale: Locale) =>
   Array.from(new Set(articlesFor(locale).map((article) => article.category)));

@@ -1,5 +1,4 @@
-/** Blog: article cards, the filterable grid, and the home page teaser. */
+/** Blog: article cards and the filterable grid. */
 export { ArticleGrid } from "./ArticleGrid";
 export { BlogCard } from "./BlogCard";
-export { BlogSection } from "./BlogSection";
 export { CategoryChip } from "./CategoryChip";

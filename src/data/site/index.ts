@@ -6,19 +6,13 @@
  * through this barrel — going via the barrel would make the two data folders
  * circular.
  */
-export {
-  company,
-  companyText,
-  currentYear,
-  type CompanyText,
-} from "./company";
-export { getFooterColumns, getLegalLinks, type FooterColumn } from "./footer";
+export { company, currentYear } from "./company";
 export { images, imageSizes } from "./images";
 export { languages, type Language } from "./languages";
 export {
-  getMobileNav,
+  getLegalLinks,
   getPrimaryNav,
-  type NavItem,
+  legalRoutes,
   type NavLink,
 } from "./navigation";
 export { sectionHref, sections, type SectionId } from "./sections";

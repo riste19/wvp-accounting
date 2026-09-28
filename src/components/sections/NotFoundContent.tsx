@@ -36,20 +36,20 @@ export function NotFoundContent() {
   return (
     <section
       lang={languageTag[locale]}
-      className="flex min-h-[60vh] items-center bg-background pb-16 pt-32 sm:pt-40"
+      className="flex min-h-[60vh] items-center bg-background pb-16 pt-52"
     >
       <Container>
         <div className="mx-auto max-w-xl text-center">
           <p className="text-6xl font-extrabold tracking-tight text-primary sm:text-7xl">
             404
           </p>
-          <h1 className="mt-4 text-2xl font-bold text-gray-900 sm:text-3xl">
+          <h1 className="mt-4 text-2xl font-bold text-foreground sm:text-3xl">
             {copy.title}
           </h1>
           <p className="mt-4 text-lg text-muted-foreground">{copy.body}</p>
           <div className="mt-8 flex flex-col justify-center gap-4 sm:flex-row">
             <ButtonLink href={`/${locale}`}>{copy.home}</ButtonLink>
-            <ButtonLink href={`/${locale}#contact`} variant="pill">
+            <ButtonLink href={`/${locale}#contact`} variant="outline">
               {copy.contact}
             </ButtonLink>
           </div>

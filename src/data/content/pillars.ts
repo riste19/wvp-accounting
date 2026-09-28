@@ -2,8 +2,7 @@ import type { IconName } from "@/components/icons";
 import type { Locale } from "@/i18n/locales";
 
 /**
- * The three reasons to choose the firm, shown as wide cards under the
- * service grid.
+ * The three "why us" cards, word for word from the approved site.
  */
 export type Pillar = {
   id: string;

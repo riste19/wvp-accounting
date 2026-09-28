@@ -38,7 +38,7 @@ export function ArrowLink({
       className={cn(
         "inline-flex items-center gap-1 text-sm font-semibold underline-offset-4 transition-colors",
         tone === "brand"
-          ? "text-primary hover:text-primary-hover hover:underline"
+          ? "text-primary hover:text-primary/80 hover:underline"
           : "text-primary hover:text-primary/80",
         className,
       )}

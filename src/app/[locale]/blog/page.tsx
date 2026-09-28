@@ -30,10 +30,10 @@ export default async function BlogPage({ params }: PageProps<"/[locale]/blog">) 
     posts.length > 0 && posts.every((post) => languageOf(post) === defaultLocale);
 
   return (
-    <section className="bg-background pb-16 pt-32 sm:pb-20 sm:pt-40">
+    <section className="bg-background pb-16 pt-48 sm:pb-20 sm:pt-52">
       <Container>
         <Reveal className="mb-10 text-center sm:mb-14">
-          <h1 className="text-3xl font-bold text-gray-900 sm:text-4xl lg:text-5xl">
+          <h1 className="text-3xl font-bold text-foreground sm:text-4xl lg:text-5xl">
             {blog.heading}
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-lg text-muted-foreground sm:text-xl">

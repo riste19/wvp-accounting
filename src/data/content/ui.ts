@@ -34,8 +34,6 @@ const mk = {
     mainNavLabel: "Главна навигација",
     openMenu: "Отвори го менито",
     closeMenu: "Затвори го менито",
-    rightsReserved: "Сите права се задржани.",
-    sisterSite: "Консалтинг услуги",
   },
 
   blog: {
@@ -44,9 +42,6 @@ const mk = {
       "Сметководствени и даночни совети, рокови кон УЈП и АВРМ, и новости од законската регулатива.",
     heading: "Совети",
     subtitle: "Сметководствени и даночни совети, рокови и новости од регулативата",
-    sectionHeading: "Од нашата пракса",
-    sectionSubtitle: "Совети, рокови и новости што се однесуваат на вашиот бизнис",
-    allPosts: "Сите објави",
     readMore: "Прочитај повеќе",
     backToPosts: "Назад кон објавите",
     related: "Слични објави",
@@ -60,13 +55,8 @@ const mk = {
   },
 
   legal: {
-    /** Shown above legal pages that are not written in this language. Empty: none needed. */
-    languageNote: "",
-  },
-
-  map: {
-    openMapLabel: "Отвори ја локацијата во {city} на Google Карти",
-    mapTitle: "Мапа со локацијата на нашата канцеларија во {city}",
+    /** Before the date on the privacy and terms pages. */
+    updated: "Последно ажурирање:",
   },
 
   notFound: {
@@ -104,8 +94,6 @@ const sq: Ui = {
     mainNavLabel: "Navigimi kryesor",
     openMenu: "Hap menynë",
     closeMenu: "Mbyll menynë",
-    rightsReserved: "Të gjitha të drejtat e rezervuara.",
-    sisterSite: "Shërbime konsulence",
   },
 
   blog: {
@@ -114,9 +102,6 @@ const sq: Ui = {
       "Këshilla kontabiliteti dhe tatimore, afate ndaj UJP-së dhe AVRM-së, dhe risi nga rregullorja ligjore.",
     heading: "Këshilla",
     subtitle: "Këshilla kontabiliteti dhe tatimore, afate dhe risi nga rregullorja",
-    sectionHeading: "Nga praktika jonë",
-    sectionSubtitle: "Këshilla, afate dhe risi që kanë të bëjnë me biznesin tuaj",
-    allPosts: "Të gjitha postimet",
     readMore: "Lexo më shumë",
     backToPosts: "Kthehu te postimet",
     related: "Postime të ngjashme",
@@ -129,12 +114,7 @@ const sq: Ui = {
   },
 
   legal: {
-    languageNote: "",
-  },
-
-  map: {
-    openMapLabel: "Hap vendndodhjen në {city} në Google Maps",
-    mapTitle: "Harta me vendndodhjen e zyrës sonë në {city}",
+    updated: "Përditësuar së fundi:",
   },
 
   notFound: {
@@ -170,8 +150,6 @@ const en: Ui = {
     mainNavLabel: "Main navigation",
     openMenu: "Open the menu",
     closeMenu: "Close the menu",
-    rightsReserved: "All rights reserved.",
-    sisterSite: "Consulting services",
   },
 
   blog: {
@@ -180,9 +158,6 @@ const en: Ui = {
       "Accounting and tax advice, deadlines with the PRO and the employment agency, and news from the regulations.",
     heading: "Advice",
     subtitle: "Accounting and tax advice, deadlines and news from the regulations",
-    sectionHeading: "From our practice",
-    sectionSubtitle: "Advice, deadlines and news that concern your business",
-    allPosts: "All posts",
     readMore: "Read more",
     backToPosts: "Back to posts",
     related: "Related posts",
@@ -195,12 +170,7 @@ const en: Ui = {
   },
 
   legal: {
-    languageNote: "",
-  },
-
-  map: {
-    openMapLabel: "Open the {city} location in Google Maps",
-    mapTitle: "Map showing our office location in {city}",
+    updated: "Last updated:",
   },
 
   notFound: {

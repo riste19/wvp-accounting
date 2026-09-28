@@ -7,11 +7,13 @@ type ContainerProps = {
   className?: string;
 };
 
-/** The site-wide content column: 1280px max, 16/24/32px gutters. */
+/**
+ * The approved site's content column: Tailwind's `container` (1280px at xl,
+ * 1536px at 2xl) with 16px gutters, 24px from `md` up. The header and footer
+ * use the same, so every page lines up with them.
+ */
 export function Container({ children, className }: ContainerProps) {
   return (
-    <div className={cn("mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8", className)}>
-      {children}
-    </div>
+    <div className={cn("container mx-auto px-4 md:px-6", className)}>{children}</div>
   );
 }

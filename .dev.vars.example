@@ -44,7 +44,7 @@ CONTACT_DRY_RUN=1
 # dashboard changes nothing until the next deploy.
 #
 # ORDER MATTERS. Add the site key and redeploy FIRST, confirm the widget
-# appears on /mk/kontakt, and only then add the secret. The other way round
+# appears in the contact form on /mk, and only then add the secret. The other way round
 # gives you a deployed site whose pages cannot produce a token and a server
 # that demands one — every genuine enquiry refused.
 #

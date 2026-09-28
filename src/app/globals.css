@@ -3,191 +3,159 @@
 /* --------------------------------------------------------------------------
    Design tokens
 
-   Both colours are sampled from the logotype rather than guessed: #e0021b is
-   the red the WVP mark is drawn in — the same red the consulting site uses,
-   because it is the same group — and #1a3041 is the navy of the word
-   АКАУНТИНГ beside it. That navy is what separates this site from its sister:
-   it carries the dark surfaces, the headings and the footer.
-
-   The reference site's own neutrals are lighter than the consulting site's
-   (it sits on a near-white #fafafa rather than #f0f0f0), and that is kept.
+   Copied value for value from the approved site's stylesheet, which is also
+   Tailwind v4 — so the same class names produce the same pixels. Colours are
+   HSL channels, used as hsl(var(--x)), exactly as that site declares them.
    -------------------------------------------------------------------------- */
 :root {
-  --background: #fafafa;
-  --foreground: #16202b;
-
-  --primary: #e0021b;
-  --primary-foreground: #ffffff;
-  /* Hover, then pressed/focus — one and two steps down the ramp. */
-  --primary-hover: #bd121a;
-  --primary-active: #9c1817;
-  /* One step up, for the lighter end of a gradient. */
-  --primary-soft: #eb4739;
-
-  /* The wordmark navy, and the two steps around it used for dark surfaces. */
-  --ink: #1a3041;
-  --ink-strong: #12222e;
-  --ink-soft: #2b4a63;
-  --ink-foreground: #ffffff;
-
-  --secondary: #e4e7eb;
-  --secondary-foreground: #16202b;
-
-  --muted: #eef0f3;
-  --muted-foreground: #5b6875;
-
-  --card: #ffffff;
-  --card-foreground: #16202b;
-
-  --border: #e0e4e9;
-  --input: #c3cad2;
-  --ring: #1a3041;
-
-  --radius: 0.8rem;
-
-  /* Category accents used by article chips */
-  --chart-1: hsl(203.8863 88.2845% 53.1373%);
-  --chart-2: hsl(159.7826 100% 36.0784%);
-  --chart-3: hsl(42.029 92.8251% 56.2745%);
-  --chart-4: hsl(147.1429 78.5047% 41.9608%);
-  --chart-5: hsl(341.4894 75.2% 50.9804%);
-
-  /* Layout rhythm */
-  --container: 80rem; /* max-w-7xl */
-  --header-height: 4rem; /* h-16 */
-
-  /* Motion */
-  --duration-fast: 150ms;
-  --duration-base: 300ms;
-  --duration-slow: 500ms;
-  --beam-color: var(--primary);
-  --beam-duration: 30s;
+  --background: 0 0% 98%;
+  --foreground: 220 20% 12%;
+  --border: 220 13% 88%;
+  --card: 0 0% 100%;
+  --card-foreground: 220 20% 12%;
+  --primary: 0 84% 40%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 220 13% 94%;
+  --secondary-foreground: 220 20% 20%;
+  --muted: 220 13% 94%;
+  --muted-foreground: 220 10% 46%;
+  --accent: 220 13% 92%;
+  --accent-foreground: 220 20% 12%;
+  --destructive: 0 84% 40%;
+  --destructive-foreground: 0 0% 100%;
+  --input: 220 13% 86%;
+  --ring: 0 84% 40%;
+  --radius: 0.75rem;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary-hover: var(--primary-hover);
-  --color-primary-active: var(--primary-active);
-  --color-primary-soft: var(--primary-soft);
-  --color-ink: var(--ink);
-  --color-ink-strong: var(--ink-strong);
-  --color-ink-soft: var(--ink-soft);
-  --color-ink-foreground: var(--ink-foreground);
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
 
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
+  /* Blog category chips only; not part of the approved design. */
+  --color-chart-1: hsl(203.8863 88.2845% 53.1373%);
+  --color-chart-2: hsl(159.7826 100% 36.0784%);
+  --color-chart-3: hsl(42.029 92.8251% 56.2745%);
+  --color-chart-4: hsl(147.1429 78.5047% 41.9608%);
+  --color-chart-5: hsl(341.4894 75.2% 50.9804%);
 
-  --font-sans: var(--font-montserrat), "Montserrat", ui-sans-serif, system-ui,
-    sans-serif;
+  /* The approved site's radius scale hangs off --radius, not Tailwind's. */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: 1.5rem;
 
-  --radius-card: var(--radius);
+  --font-sans: var(--font-montserrat), "Montserrat", sans-serif;
+  --font-display: var(--font-montserrat), "Montserrat", sans-serif;
 }
 
 @layer base {
   * {
-    border-color: var(--border);
+    border-color: hsl(var(--border));
   }
 
   html {
     scroll-behavior: smooth;
-    /* Anchor targets must clear the fixed header. */
-    scroll-padding-top: calc(var(--header-height) + 1.5rem);
+    /* Where the header's own links land a section: 80px down, as they do on
+       the approved site. Covers arriving at /mk#services from another page. */
+    scroll-padding-top: 80px;
   }
 
   body {
-    background-color: var(--background);
-    color: var(--foreground);
-    font-family: var(--font-sans);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: var(--font-sans);
+    overflow-x: hidden;
   }
 
-  /* The reference never scrolls sideways; guard against it at every width. */
-  html,
-  body {
-    overflow-x: clip;
+  body ::selection,
+  body::selection {
+    background-color: color-mix(in oklab, hsl(var(--primary)) 30%, transparent);
+    color: #fff;
   }
 
-  :focus-visible {
-    outline: 2px solid var(--primary);
-    outline-offset: 2px;
+  /* As on the approved site, minus its `color: white`: every heading there
+     sets its own colour, and a white default only hides the ones that don't. */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.025em;
   }
 }
 
 /* --------------------------------------------------------------------------
-   Scroll reveal — see components/ui/Reveal.tsx
+   Motion
+
+   The approved site animates with framer-motion. These reproduce its exact
+   settings in CSS — same distances, durations, delays and curves — so this
+   site does not ship the library. framer's "easeInOut" is CSS `ease-in-out`,
+   its "easeOut" is cubic-bezier(0, 0, 0.58, 1).
    -------------------------------------------------------------------------- */
-.reveal {
+
+/* Scroll reveal: see components/motion/Reveal.tsx, which sets the variables
+   and adds `.fm-in` when the element enters the viewport. */
+.fm {
   opacity: 0;
-  transform: translateY(24px);
-  transition:
-    opacity 600ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 600ms cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translate(var(--fm-x, 0), var(--fm-y, 0));
+  transition-property: opacity, transform;
+  transition-duration: var(--fm-duration, 0.6s);
+  transition-timing-function: ease-in-out;
+  transition-delay: var(--fm-delay, 0s);
 }
 
-.reveal--visible {
+.fm-in {
   opacity: 1;
   transform: none;
 }
 
-/* --------------------------------------------------------------------------
-   Hero entrance — see features/home/HeroSlider.tsx
-
-   Plays on first paint and again on every slide change: the slider gives the
-   text block a `key`, so React remounts it and the animation restarts. Each
-   line rises a little less than the one above it, which reads as the block
-   settling into place rather than three separate things moving.
-
-   `both` holds the opening frame through the delay, so nothing flashes at full
-   opacity before its turn. There is no JavaScript behind this, so the copy
-   still animates with scripting switched off.
-   -------------------------------------------------------------------------- */
-.hero-rise {
-  --hero-rise-from: 60px;
-  --hero-rise-scale: 0.96;
-  /* Near-expo easing: most of the distance is covered in the first third, then
-     it settles for a long time. That tail is what makes a large movement read
-     as smooth and deliberate instead of as something thrown onto the screen.
-     Only `transform` and `opacity` animate, so the whole thing runs on the
-     compositor and holds 60fps. */
-  animation: hero-rise 1300ms cubic-bezier(0.16, 1, 0.3, 1) both;
+/* framer's defaults when no transition is given: a stiff spring (500/25) for
+   position, a 0.3s tween for opacity. The spring is sampled into linear(). */
+.fm-spring {
+  transition:
+    opacity 0.3s cubic-bezier(0.25, 0.1, 0.35, 1),
+    transform 0.31s
+      linear(
+        0, 0.0141, 0.0544, 0.1105, 0.1799, 0.2584, 0.3483, 0.4349, 0.5212,
+        0.605, 0.6896, 0.7632, 0.8302, 0.8938, 0.9457, 0.99, 1.027, 1.0587,
+        1.0816, 1.0985, 1.1099, 1.1168, 1.1191, 1.1179, 1.1135, 1.1071, 1.099,
+        1.0898, 1.0792, 1.0689, 1.0586, 1.0479, 1.0384, 1.0295, 1.0214, 1.0137,
+        1.0074, 1.0019, 0.9974, 0.9935, 1
+      );
 }
 
-.hero-rise--title {
-  --hero-rise-from: 140px;
-  --hero-rise-scale: 0.9;
+/* The hero copy plays on load rather than on scroll. */
+.fm-hero {
+  animation: fm-rise 0.8s cubic-bezier(0, 0, 0.58, 1) both;
 }
 
-.hero-rise--subtitle {
-  --hero-rise-from: 90px;
-  --hero-rise-scale: 0.95;
-  animation-delay: 200ms;
-}
-
-.hero-rise--actions {
-  --hero-rise-from: 60px;
-  --hero-rise-scale: 0.97;
-  animation-delay: 400ms;
-}
-
-@keyframes hero-rise {
+@keyframes fm-rise {
   from {
     opacity: 0;
-    transform: translateY(var(--hero-rise-from)) scale(var(--hero-rise-scale));
+    transform: translateY(30px);
   }
   to {
     opacity: 1;
@@ -195,59 +163,123 @@
   }
 }
 
-/* --------------------------------------------------------------------------
-   Travelling border light on the service cards.
-   A soft red ellipse rides the card's own rounded border box; a two-layer mask
-   keeps only the 1px border ring visible.
-   -------------------------------------------------------------------------- */
-.border-beam {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  border-radius: inherit;
-  border: 1px solid transparent;
-  pointer-events: none;
-  mask:
-    linear-gradient(transparent, transparent),
-    linear-gradient(#fff, #fff);
-  mask-clip: padding-box, border-box;
-  mask-composite: intersect;
-  -webkit-mask-composite: source-in;
+/* The scroll-down chevron: fades in after 1.5s, and bounces throughout. */
+.fm-chevron {
+  animation:
+    fm-fade 1s ease-in-out 1.5s both,
+    fm-bounce 1s infinite;
 }
 
-.border-beam__light {
-  display: none;
-}
-
-@supports (offset-path: border-box) {
-  .border-beam__light {
-    display: block;
-    position: absolute;
-    width: 280px;
-    aspect-ratio: 1;
-    offset-path: border-box;
-    offset-anchor: center;
-    offset-rotate: 0deg;
-    background: radial-gradient(
-      ellipse at center,
-      var(--beam-color),
-      transparent 60%
-    );
-    animation: border-beam-travel var(--beam-duration) linear infinite;
-  }
-}
-
-@keyframes border-beam-travel {
+@keyframes fm-fade {
   from {
-    offset-distance: 0%;
+    opacity: 0;
   }
   to {
-    offset-distance: 100%;
+    opacity: 1;
+  }
+}
+
+/* Tailwind's `bounce`, under its own name: Tailwind only emits its keyframes
+   when `animate-bounce` itself appears somewhere in the source. */
+@keyframes fm-bounce {
+  0%,
+  100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+/* The drifting digits behind the services, "why us" and contact sections.
+   Position and tilt run as separate animations on `translate` and `rotate`,
+   because framer gives them different keyframe counts under one duration. */
+.fm-float {
+  opacity: 0;
+  translate: 0 20px;
+  animation:
+    fm-float var(--fm-duration) ease-in-out var(--fm-delay) infinite,
+    fm-tilt var(--fm-duration) ease-in-out var(--fm-delay) infinite;
+}
+
+@keyframes fm-float {
+  0%,
+  100% {
+    opacity: var(--fm-o1);
+    translate: 0 0;
+  }
+  50% {
+    opacity: var(--fm-o2);
+    translate: 0 var(--fm-dy);
+  }
+}
+
+@keyframes fm-tilt {
+  0%,
+  100% {
+    rotate: 0deg;
+  }
+  33.333% {
+    rotate: var(--fm-r);
+  }
+  66.667% {
+    rotate: calc(var(--fm-r) * -1);
+  }
+}
+
+/* The mobile menu opens by height, as framer's `height: "auto"` does. */
+.fm-menu {
+  display: grid;
+  grid-template-rows: 1fr;
+  animation: fm-menu 0.3s cubic-bezier(0.25, 0.1, 0.35, 1) both;
+}
+
+@keyframes fm-menu {
+  from {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+}
+
+/* The toast after the contact form: in from the top on phones, from the
+   bottom from `sm` up, out to the right. */
+.toast-in {
+  animation: toast-in-top 0.15s ease both;
+}
+
+@media (min-width: 40rem) {
+  .toast-in {
+    animation-name: toast-in-bottom;
+  }
+}
+
+.toast-out {
+  animation: toast-out 0.15s ease both;
+}
+
+@keyframes toast-in-top {
+  from {
+    transform: translateY(-100%);
+  }
+}
+
+@keyframes toast-in-bottom {
+  from {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes toast-out {
+  to {
+    opacity: 0.2;
+    transform: translateX(100%);
   }
 }
 
 /* --------------------------------------------------------------------------
-   Long-form article body
+   Long-form article body — blog posts and the legal pages
    -------------------------------------------------------------------------- */
 .article-body > * + * {
   margin-top: 1.5rem;
@@ -271,7 +303,7 @@
 .article-body li {
   font-size: 1.125rem;
   line-height: 1.75;
-  color: var(--muted-foreground);
+  color: hsl(var(--muted-foreground));
 }
 
 .article-body ul {
@@ -284,7 +316,7 @@
 }
 
 .article-body strong {
-  color: var(--foreground);
+  color: hsl(var(--foreground));
   font-weight: 600;
 }
 
@@ -298,50 +330,15 @@
   *::after {
     animation-duration: 0.001ms !important;
     animation-iteration-count: 1 !important;
-    /* Without this the hero copy still waits out its stagger — 400ms of blank
-       screen for someone who asked for less motion, not more waiting. */
     animation-delay: 0ms !important;
     transition-duration: 0.001ms !important;
     transition-delay: 0ms !important;
     scroll-behavior: auto !important;
   }
 
-  .border-beam__light {
-    display: none;
-  }
-
   /* Content still arrives, it just arrives without movement. */
-  .reveal {
+  .fm {
     opacity: 1;
     transform: none;
-  }
-
-  /*
-   * The hero keeps its entrance, minus the travel. Movement is what this
-   * preference exists to suppress; a change in opacity carries none of the
-   * vestibular risk, so the copy still arrives rather than appearing fully
-   * formed. Same reasoning as the count-up in `AnimatedCounter`.
-   *
-   * The duration override above applies to every animation, so it has to be
-   * restated here or the fade would collapse to nothing.
-   */
-  .hero-rise {
-    animation-name: hero-fade !important;
-    animation-duration: 1100ms !important;
-  }
-}
-
-/*
- * The reduced-motion entrance: a clean staggered fade — no travel, no blur.
- * Once movement is off the table there is very little drama left to give, and
- * dressing it up with a filter reads as soft rather than deliberate. This is
- * the honest limit of what the preference allows.
- */
-@keyframes hero-fade {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
   }
 }

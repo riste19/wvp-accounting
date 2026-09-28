@@ -22,7 +22,8 @@ export function organizationJsonLd(siteUrl: string) {
       addressLocality: company.address.city,
       addressCountry: "MK",
     },
-    sameAs: [company.social.linkedin],
+    // No `sameAs`: the firm has no social profiles, and the approved site
+    // links none. Add them here when it gets its own.
   };
 }
 

@@ -2,7 +2,7 @@ import type { IconName } from "@/components/icons";
 import type { Locale } from "@/i18n/locales";
 
 /**
- * The twelve service areas, as the cards on the home page show them.
+ * The twelve service cards, word for word from the approved site.
  */
 export type Service = {
   icon: IconName;

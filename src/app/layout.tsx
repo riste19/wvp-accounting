@@ -64,7 +64,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       <head>
         {/* Scroll reveals start hidden; without JavaScript they never unhide. */}
         <noscript>
-          <style>{".reveal{opacity:1;transform:none}"}</style>
+          <style>{".fm{opacity:1;transform:none}"}</style>
         </noscript>
       </head>
       <body className="flex min-h-full flex-col">{children}</body>

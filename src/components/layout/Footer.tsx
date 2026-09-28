@@ -1,114 +1,119 @@
 import { Mail, MapPin, Phone } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
-import { Container } from "@/components/ui";
 import { getContent } from "@/data/content";
 import {
   company,
-  companyText,
   currentYear,
-  getFooterColumns,
   getLegalLinks,
+  getPrimaryNav,
+  images,
 } from "@/data/site";
 import type { Locale } from "@/i18n/locales";
 
-import { Logo } from "./Logo";
+import { SectionLink } from "./SectionLink";
 
 /**
- * The navy the wordmark is drawn in carries the footer, so the white logotype
- * sits on the colour it was made for rather than on a darkened photograph.
+ * The approved site's footer, class for class: the office building under a
+ * near-black wash, the white logotype, quick links, contact details.
+ *
+ * Two differences. The privacy and terms links open real pages; there they
+ * go to "#", because that site never had them. And the phone and email are
+ * tel:/mailto: links rather than plain text.
  */
 export function Footer({ locale }: { locale: Locale }) {
-  const { ui, text } = getContent(locale);
-  const address = companyText[locale].address;
-  const columns = getFooterColumns(locale);
+  const { text } = getContent(locale);
+  const quickLinks = getPrimaryNav(locale);
   const legalLinks = getLegalLinks(locale);
+  const phone = company.phones[0];
 
   return (
-    <footer className="bg-ink py-16 text-white">
-      <Container>
-        <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-4">
-          <div className="lg:col-span-2">
-            <Logo variant="footer" tone="white" alt={company.name} />
-            <p className="mt-6 max-w-md font-semibold tracking-wide text-white/80">
-              {text.footer.tagline}
-            </p>
-            <a
-              href={company.sister.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-6 inline-block text-sm text-white/70 underline-offset-4 transition-colors hover:text-white hover:underline"
-            >
-              {company.sister.name} — {ui.chrome.sisterSite}
-            </a>
-          </div>
+    <footer className="relative overflow-hidden">
+      <div className="absolute inset-0 z-0">
+        <Image
+          src={images.building}
+          alt=""
+          width={800}
+          height={550}
+          className="w-full h-full object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-zinc-950/92"></div>
+      </div>
 
-          {columns.map((column) => (
-            <div key={column.title}>
-              <h2 className="mb-4 text-lg font-semibold">{column.title}</h2>
-              <ul className="space-y-2 text-white/70">
-                {column.links.map((link) => (
-                  <li key={`${column.title}-${link.label}`}>
-                    <Link
+      <div className="relative z-10 pt-16 pb-8">
+        <div className="container mx-auto px-4 md:px-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-12 lg:gap-24 mb-12">
+            <div className="flex flex-col gap-6">
+              <Image
+                src={images.logoWhite}
+                alt="WVP Accounting"
+                width={1273}
+                height={311}
+                className="h-42 w-auto object-contain self-start brightness-0 invert"
+              />
+              <p className="text-zinc-400 leading-relaxed">
+                {text.footer.description}
+              </p>
+            </div>
+
+            <div>
+              <h4 className="font-semibold text-lg mb-6 text-white">
+                {text.footer.links}
+              </h4>
+              <ul className="flex flex-col gap-3">
+                {quickLinks.map((link) => (
+                  <li key={link.href}>
+                    <SectionLink
                       href={link.href}
-                      className="transition-colors hover:text-white"
+                      className="text-zinc-400 hover:text-primary transition-colors text-left"
                     >
                       {link.label}
-                    </Link>
+                    </SectionLink>
                   </li>
                 ))}
               </ul>
             </div>
-          ))}
 
-          <div>
-            <h2 className="mb-4 text-lg font-semibold">{text.footer.contact}</h2>
-            <ul className="space-y-3 text-white/70">
-              <li className="flex gap-3">
-                <MapPin aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                <span>
-                  {address.street}
-                  <br />
-                  {address.postcode} {address.city}
-                </span>
-              </li>
-              <li className="flex gap-3">
-                <Phone aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                <a
-                  href={`tel:${company.phones[0].replace(/\s/g, "")}`}
-                  className="transition-colors hover:text-white"
-                >
-                  {company.phones[0]}
-                </a>
-              </li>
-              <li className="flex gap-3">
-                <Mail aria-hidden className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
-                <a
-                  href={`mailto:${company.email}`}
-                  className="break-all transition-colors hover:text-white"
-                >
-                  {company.email}
-                </a>
-              </li>
-            </ul>
+            <div>
+              <h4 className="font-semibold text-lg mb-6 text-white">
+                {text.footer.contact}
+              </h4>
+              <ul className="flex flex-col gap-4 text-zinc-400">
+                <li className="flex items-start gap-3">
+                  <MapPin aria-hidden className="w-5 h-5 text-primary shrink-0 mt-0.5" />
+                  <span>{text.contact.location}</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone aria-hidden className="w-5 h-5 text-primary shrink-0" />
+                  <a href={`tel:${phone.replace(/\s/g, "")}`}>{phone}</a>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Mail aria-hidden className="w-5 h-5 text-primary shrink-0" />
+                  <a href={`mailto:${company.email}`}>{company.email}</a>
+                </li>
+              </ul>
+            </div>
           </div>
-        </div>
 
-        <div className="mt-12 flex flex-col items-center gap-4 border-t border-white/20 pt-8 text-sm text-white/60 md:flex-row md:justify-between">
-          <p>
-            © {currentYear} {company.name}. {ui.chrome.rightsReserved}
-          </p>
-          <ul className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2">
-            {legalLinks.map((link) => (
-              <li key={link.href}>
-                <Link href={link.href} className="transition-colors hover:text-white">
+          <div className="border-t border-white/10 pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-zinc-500">
+            <p>
+              © {currentYear} WVP ACCOUNTING. {text.footer.copyright}
+            </p>
+            <div className="flex gap-4">
+              {legalLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="hover:text-primary transition-colors"
+                >
                   {link.label}
                 </Link>
-              </li>
-            ))}
-          </ul>
+              ))}
+            </div>
+          </div>
         </div>
-      </Container>
+      </div>
     </footer>
   );
 }

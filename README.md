@@ -14,8 +14,13 @@ static (SSG), in three languages: Macedonian, Albanian and English.
 The firm already had a site at `wvpaccounting.mk`. It was a Vite + React
 single-page app, and its `index.html` was an empty `<div id="root">` — every
 word on the page was assembled by JavaScript in the browser. That means
-**search engines saw a blank page**. This rebuild puts the same content, and
-the same design, into a static export where all of it is in the HTML.
+**search engines saw a blank page**.
+
+This is that site, rebuilt as an **exact replica** — same markup, same
+classes, same colours, same images, same animations — in a static export
+where all of the text is in the HTML. At 1440px and at 390px the two render
+to the same page height, and a pixel diff of every screen differs by under
+0.25% (anti-aliasing, and the deliberate corrections listed below).
 
 It is a separate repository from the consulting site on purpose. Same
 architecture, same admin panel, but its own content, its own editors and its
@@ -52,14 +57,19 @@ and the admin API return 404 there. Use `npm run preview` to exercise them.
 | `/{mk,sq,en}` | The whole site: one page, anchored sections |
 | `/{locale}/blog` | Post list |
 | `/{locale}/blog/{slug}` | A post |
-| `/{locale}/politika-za-privatnost` | Privacy policy |
-| `/{locale}/uslovi-za-koristenje` | Terms of use |
+| `/{locale}/politika-za-privatnost` | Privacy policy, linked from the footer |
+| `/{locale}/uslovi-za-koristenje` | Terms of use, linked from the footer |
 | `/admin` | The editor's panel. `noindex`, never cached |
 
-The home page's sections are `#home`, `#services`, `#packages`, `#why-us`,
-`#about` and `#contact` — the same anchor ids the previous site used, so any
-link anyone has already shared still lands in the right place. The ids are
-defined once in `src/data/site/sections.ts`; nothing hard-codes them.
+The home page's sections are `#home`, `#services`, `#why-us` and `#contact`,
+the same ids the approved site uses. The header and footer also link to
+`#packages`, which — exactly as on the approved site — has no section, so the
+link does nothing. The ids are defined once in `src/data/site/sections.ts`.
+
+The approved site has no blog, no legal pages and no social profiles. The
+blog exists because the admin panel publishes to it, but, as there, nothing
+on the page links to it. Its footer's privacy and terms links went to `#`;
+here they open real pages, in all three languages.
 
 ---
 
@@ -70,36 +80,35 @@ component.
 
 | File | Holds |
 | --- | --- |
-| `text.ts` | Every word of the home page, in all three languages |
+| `text.ts` | Every word of the home page, header, footer and contact form |
 | `services.ts` | The twelve service cards |
 | `pillars.ts` | The three "why us" cards |
-| `packages.ts` | The five packages |
-| `contactForm.ts` | Form labels, placeholders, errors |
 | `ui.ts` | Page metadata and control labels — the scaffolding, not the content |
-| `legal.ts` | Privacy policy and terms |
+| `legal.ts` | Privacy policy and terms, in all three languages |
 | `posts.json` | Blog posts. **Written by the admin panel — do not hand-edit** |
 
-`text.ts`, `services.ts`, `pillars.ts` and `packages.ts` were extracted from
-the live JavaScript bundle of the approved site, so the wording is his, not a
-rewrite.
+`text.ts`, `services.ts` and `pillars.ts` were generated from the live
+JavaScript bundle of the approved site, so the wording is his, word for word.
 
-### Corrections made to the approved site's copy
+### Where this differs from the approved site
 
-Each of these is a plain mistake on the live site. They are fixed here and
-listed so he can confirm rather than discover them later.
+Each of these is a plain mistake there. They are fixed here and listed so he
+can confirm rather than discover them later.
 
-| Where | Was | Now |
+| Where | Approved site | Here |
 | --- | --- | --- |
-| Contact email | Both `info@wvpaccounting.mk` and `info@wvpaccouting.mk` appeared; the second bounces | Only the correct spelling |
-| MK, "why us" #4 | „Трезорски тројазична поддршка" | „Тројазична поддршка" |
-| MK, HR services | „Отварање на боледување" | „Отворање на боледување" |
-| MK, email placeholder | „вашиот@емаил.ком" (Cyrillic — not a usable address) | `vasiot@email.com` |
+| Footer email | `info@wvpaccouting.mk` — missing the "n"; mail to it bounces | `info@wvpaccounting.mk`, as its own contact section already has |
 | AL, hero line 3 | "MÊ TÊ MIRËN" (circumflex, not diaeresis) | "MË TË MIRËN" |
 | AL, hero button | "Shërbime Tona" | "Shërbimet Tona" |
-| AL, "why us" #4 | "Mbështetje tërgjistore" | "Mbështetje trigjuhëshe" |
+| AL, footer line | "PER KLIENTIN, … MÊ TÊ MIRËN." | "PËR KLIENTIN, … MË TË MIRËN." |
+| Form errors | English on every language ("Name must be at least 2 characters") | In the page's language; English keeps its exact wording |
+| Contact form | Shows "sent" after a second and **discards the message** | Actually sends it, via `/api/contact`, and says so if it fails |
+| Footer privacy / terms | `href="#"`: the pages never existed | Real pages. A site with a contact form has to say what it does with the data |
 
-The corrections live in the `FIX` table at the top of the generator that
-produced `text.ts`; in this repo they are simply part of the file.
+Invisible differences: the language pills are links to `/mk`, `/en`, `/sq`
+rather than buttons (so each language is its own crawlable page — switching
+keeps your scroll position, as it did there), and the phone and email are
+`tel:`/`mailto:` links.
 
 ### Language codes
 
@@ -111,15 +120,21 @@ consulting site. The visible switcher still reads "AL".
 
 ## Design
 
-Both brand colours are sampled from the logotype rather than guessed:
+Everything is copied from the approved site rather than approximated:
 
-- `--primary: #e0021b` — the red the WVP mark is drawn in. The same red the
-  consulting site uses, because it is the same group.
-- `--ink: #1a3041` — the navy of the word АКАУНТИНГ. This is what separates
-  the two sites: it carries the dark bands, the headings and the footer.
-
-Type is **Montserrat**, as on the approved site. Tokens are declared in
-`src/app/globals.css` via `@theme inline`; Tailwind v4 has no config file.
+- **Tokens.** The `:root` block in `src/app/globals.css` is that site's,
+  value for value — HSL channels used as `hsl(var(--x))`, primary
+  `0 84% 40%`, its radius scale off `--radius: 0.75rem`. Both sites are
+  Tailwind v4, so its class strings are used unchanged and produce the same
+  CSS.
+- **Images.** The files in `public/images` are its own, byte for byte. The
+  header logo is a 1920×1080 canvas sized by `h-32`; trimming it would change
+  how big it looks.
+- **Motion.** That site animates with framer-motion. `globals.css` reproduces
+  each animation in CSS with the same distances, durations, delays and
+  curves (framer's default spring is sampled into a `linear()` easing), so
+  this site does not ship the library. See `components/motion`.
+- **Type.** Montserrat, via `next/font`.
 
 ---
 
@@ -147,9 +162,10 @@ Cloudflare Pages, build on push.
 | Node version | 20+ (`.nvmrc`) |
 
 `npm run build` ends with `scripts/verify-export.mjs`, which fails the build on
-16 checks — no stray `out/index.html`, no `/_next/image` references, every
-`<img>` resolving, `_redirects` and `_headers` present with LF endings, and all
-three locale roots carrying the right `lang` attribute.
+17 checks — no stray `out/index.html`, no `/_next/image` references, every
+`<img>` resolving, `_redirects` and `_headers` present with LF endings, all
+three locale roots carrying the right `lang` attribute, and every sitemap URL
+being a page the build actually produced.
 
 **A 200 on a page URL does not prove which build is live.** To check a deploy,
 fetch the page, pull its `/_next/static/chunks/*.js` URLs, and grep the
@@ -163,23 +179,32 @@ file.
 
 ---
 
-## Still to settle with the client
+## Kept exactly as the approved site has them
 
-1. **The packages have no prices.** The approved site shows none either — the
-   cards carry a "monthly" label and a "choose package" button, but no
-   figures. Add a `price` field to `packages.ts` when he sets them.
-2. **The contact form asks two more questions** than his site did: company and
-   subject. A lead that arrives already sorted by topic is worth more than the
-   half-second it costs. Easy to trim back if he disagrees.
+Decided 2026-09-27: these match the approved site, on purpose.
+
+- **"Packages" goes nowhere.** It is in the header and footer with no section
+  behind it. The approved site's bundle does contain five packages (no
+  prices) that were never put on the page.
+- **Nothing links to the blog**, so a post published from the admin panel is
+  reachable only by its URL and the sitemap.
+- **No social profiles**, visible or in the structured data.
+- **The hero photo is its 800px file**, stretched across the full screen. It
+  looks as soft there. A larger original of the same shot would sharpen both.
+
+## Still to settle
+
+1. **A lawyer should read the privacy policy and terms before launch.** They
+   were adapted from the consulting site's, rewritten for an accounting firm
+   and translated into Albanian and English on 2026-09-28. Worth checking: the
+   legal bases, the retention periods, and the transfer to Cloudflare and
+   Resend in the US. Move `updated` in `legal.ts` whenever they change.
+2. **`info@wvpaccounting.mk` may not receive mail.** The domain's MX record
+   points at the web host, which does not accept mail. The contact section,
+   the footer and the privacy policy all send people to that address.
 3. **The starter blog post** (`dobredojdovte-na-nasiot-blog`) exists because a
    static export needs at least one post to generate the route. He can delete
    it from the panel once there is a real one.
-4. **The legal pages** were adapted from the consulting site's, with the entity
-   and services renamed. A lawyer should read them before launch.
-5. **No social profiles.** The structured data points at the group's LinkedIn.
-   Replace `company.social` the moment the firm gets its own.
-6. **The logotype is Macedonian in every language.** There is no Latin
-   "ACCOUNTING" version of the artwork; the approved site has the same.
 
 ---
 

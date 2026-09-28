@@ -44,12 +44,9 @@ const isLanguage = (value: unknown): value is Language =>
   (LANGUAGES as readonly unknown[]).includes(value);
 
 type Payload = {
-  firstName: string;
-  lastName: string;
-  company: string;
+  name: string;
   email: string;
   phone: string;
-  subject: string;
   message: string;
   /** The page's language. Visitor-facing errors are answered in it. */
   locale: Language;
@@ -61,7 +58,7 @@ type Payload = {
 
 /**
  * Visitor-facing copy. The field messages match the form's own in
- * `src/data/content/ui*.ts`, so a message is worded the same
+ * `src/data/content/text.ts`, so a message is worded the same
  * whether the browser or the server caught the problem.
  */
 const ERRORS: Record<
@@ -71,11 +68,9 @@ const ERRORS: Record<
     validation: string;
     server: string;
     challenge: string;
-    firstName: string;
-    lastName: string;
-    emailMissing: string;
-    emailInvalid: string;
-    subject: string;
+    name: string;
+    email: string;
+    phone: string;
     message: string;
   }
 > = {
@@ -84,23 +79,19 @@ const ERRORS: Record<
     validation: "Проверете ги внесените податоци.",
     server: "Пораката не беше испратена. Обидете се повторно подоцна.",
     challenge: "Потврдата дека не сте робот не успеа. Обидете се повторно.",
-    firstName: "Внесете го вашето име.",
-    lastName: "Внесете го вашето презиме.",
-    emailMissing: "Внесете ја вашата е-пошта.",
-    emailInvalid: "Внесете валидна адреса на е-пошта.",
-    subject: "Изберете тема на пораката.",
-    message: "Пораката треба да содржи барем 10 знаци.",
+    name: "Името мора да содржи најмалку 2 знаци.",
+    email: "Невалидна емаил адреса.",
+    phone: "Невалиден телефонски број.",
+    message: "Пораката мора да содржи најмалку 10 знаци.",
   },
   sq: {
     badRequest: "Kërkesë e pavlefshme.",
     validation: "Kontrolloni të dhënat e futura.",
     server: "Mesazhi nuk u dërgua. Provoni përsëri më vonë.",
     challenge: "Verifikimi se nuk jeni robot dështoi. Provoni përsëri.",
-    firstName: "Shkruani emrin tuaj.",
-    lastName: "Shkruani mbiemrin tuaj.",
-    emailMissing: "Shkruani e-postën tuaj.",
-    emailInvalid: "Shkruani një adresë të vlefshme e-poste.",
-    subject: "Zgjidhni temën e mesazhit.",
+    name: "Emri duhet të ketë të paktën 2 karaktere.",
+    email: "Adresë emaili e pavlefshme.",
+    phone: "Numër telefoni i pavlefshëm.",
     message: "Mesazhi duhet të ketë të paktën 10 karaktere.",
   },
   en: {
@@ -108,12 +99,10 @@ const ERRORS: Record<
     validation: "Check the details you entered.",
     server: "The message was not sent. Try again later.",
     challenge: "The check that you are not a robot failed. Try again.",
-    firstName: "Enter your first name.",
-    lastName: "Enter your last name.",
-    emailMissing: "Enter your email.",
-    emailInvalid: "Enter a valid email address.",
-    subject: "Select a subject for your message.",
-    message: "The message must be at least 10 characters long.",
+    name: "Name must be at least 2 characters",
+    email: "Invalid email address",
+    phone: "Invalid phone number",
+    message: "Message must be at least 10 characters",
   },
 };
 
@@ -127,12 +116,9 @@ const LANGUAGE_NAMES: Record<Language, string> = {
 const MAX_BODY_BYTES = 16 * 1024;
 
 const LIMITS = {
-  firstName: 80,
-  lastName: 80,
-  company: 120,
+  name: 160,
   email: 160,
   phone: 40,
-  subject: 120,
   message: 5000,
 } as const;
 
@@ -176,11 +162,10 @@ function validate(payload: Payload): string | null {
     if (str(payload[key]).length > max) return messages.validation;
   }
 
-  if (!payload.firstName.trim()) return messages.firstName;
-  if (!payload.lastName.trim()) return messages.lastName;
-  if (!payload.email.trim()) return messages.emailMissing;
-  if (!EMAIL_PATTERN.test(payload.email.trim())) return messages.emailInvalid;
-  if (!payload.subject.trim()) return messages.subject;
+  // The form's own rules: every field is required.
+  if (payload.name.trim().length < 2) return messages.name;
+  if (!EMAIL_PATTERN.test(payload.email.trim())) return messages.email;
+  if (payload.phone.trim().length < 6) return messages.phone;
   if (payload.message.trim().length < 10) return messages.message;
 
   return null;
@@ -248,13 +233,11 @@ async function verifyTurnstile(
 }
 
 function buildEmail(payload: Payload, receivedAt: string) {
-  const fullName = oneLine(`${payload.firstName} ${payload.lastName}`);
+  const fullName = oneLine(payload.name);
   const rows: [string, string][] = [
-    ["Име", fullName],
-    ["Компанија", payload.company.trim() || "—"],
+    ["Име и презиме", fullName],
     ["Е-пошта", payload.email.trim()],
-    ["Телефон", payload.phone.trim() || "—"],
-    ["Тема", payload.subject.trim()],
+    ["Телефон", payload.phone.trim()],
     // Tells whoever answers which language the visitor wrote in.
     ["Јазик", LANGUAGE_NAMES[payload.locale]],
     ["Примено", receivedAt],
@@ -296,7 +279,7 @@ function buildEmail(payload: Payload, receivedAt: string) {
     payload.locale === "mk" ? "" : `[${payload.locale.toUpperCase()}] `;
 
   return {
-    subject: `${languageTag}Контакт: ${oneLine(payload.subject)} — ${fullName}`,
+    subject: `${languageTag}Контакт од wvpaccounting.mk — ${fullName}`,
     text,
     html,
   };
@@ -349,12 +332,9 @@ export const onRequestPost: PagesFunction<Env> = async ({ request, env }) => {
 
   const source = raw as Record<string, unknown>;
   const payload: Payload = {
-    firstName: str(source.firstName),
-    lastName: str(source.lastName),
-    company: str(source.company),
+    name: str(source.name),
     email: str(source.email),
     phone: str(source.phone),
-    subject: str(source.subject),
     message: str(source.message),
     // Anything unrecognised, including a missing field from an older cached
     // page, is treated as Macedonian.

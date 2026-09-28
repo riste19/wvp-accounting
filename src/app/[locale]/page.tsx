@@ -1,19 +1,17 @@
 import type { Metadata } from "next";
 
 import { getContent } from "@/data/content";
+import { company } from "@/data/site";
 import {
-  AboutSection,
-  AdminServicesSection,
   ContactSection,
   Hero,
-  PackagesSection,
-  PillarsSection,
   ServicesSection,
   StatsSection,
-  WhySection,
+  WhyUsSection,
 } from "@/features/home";
 import { localeAlternates } from "@/i18n/locales";
 import { resolveLocale } from "@/i18n/resolveLocale";
+import { organizationJsonLd } from "@/lib";
 
 export async function generateMetadata({
   params,
@@ -31,27 +29,29 @@ export async function generateMetadata({
 }
 
 /**
- * The whole site, on one page, the way the approved design has it: the header
- * links are anchors into these sections rather than separate routes.
+ * The whole site on one page, section for section as the approved site has
+ * it: hero, figures, services, why us, contact.
  *
- * It is still a static export, so all of this text is in the HTML — which the
- * old single-page app could not manage, and is the main reason to rebuild it.
+ * It is a static export, so all of this text is in the HTML — which the old
+ * single-page app could not manage, and is the main reason to rebuild it.
  */
 export default async function HomePage({ params }: PageProps<"/[locale]">) {
   const locale = await resolveLocale(params);
-  const { text, services, pillars, packages, contactForm } = getContent(locale);
+  const { text, services, pillars } = getContent(locale);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(organizationJsonLd(company.siteUrl)),
+        }}
+      />
       <Hero locale={locale} text={text} />
-      <ServicesSection services={services} text={text} />
-      <PillarsSection pillars={pillars} />
-      <PackagesSection locale={locale} packages={packages} text={text} />
-      <AdminServicesSection text={text} />
       <StatsSection text={text} />
-      <WhySection locale={locale} text={text} />
-      <AboutSection text={text} />
-      <ContactSection locale={locale} text={text} formCopy={contactForm} />
+      <ServicesSection services={services} text={text} />
+      <WhyUsSection pillars={pillars} text={text} />
+      <ContactSection locale={locale} text={text} />
     </>
   );
 }
